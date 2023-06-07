@@ -2,6 +2,7 @@ import 'hardhat-typechain'
 import '@nomiclabs/hardhat-ethers'
 import '@nomicfoundation/hardhat-chai-matchers'
 import dotenv from 'dotenv'
+import "@nomicfoundation/hardhat-verify";
 dotenv.config()
 
 const DEFAULT_COMPILER_SETTINGS = {
@@ -62,6 +63,27 @@ export default {
     polygon: {
       url: `https://polygon-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
     },
+    tokamakgoerli: {
+      chainId: 5050,
+      url: `https://goerli.optimism.tokamak.network`,
+      timeout: 200000,
+      accounts: [`${process.env.PRIVATE_KEY1}`],
+    },
+  },
+  etherscan: {
+    // Your API key for Etherscan
+    // Obtain one at https://etherscan.io/
+    apiKey: process.env.ETHERSCAN_API_KEY,
+    customChains: [
+      {
+        network: 'tokamakgoerli',
+        chainId: 5050,
+        urls: {
+          apiURL: 'https://goerli.explorer.tokamak.network/api',
+          browserURL: 'https://goerli.explorer.tokamak.network',
+        },
+      },
+    ],
   },
   namedAccounts: {
     deployer: 0,
